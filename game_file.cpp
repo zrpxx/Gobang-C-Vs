@@ -30,7 +30,8 @@ void Chessboard()
 	}
 	printf("\n   ©» ©ß ©ß ©ß ©ß ©ß ©ß ©ß ©ß ©ß ©ß ©ß ©ß ©ß ©ß ©ß ©¿");
 }
-void PutBlackStone()
+
+int PutBlackStone()
 {
 	char a[5],b[5];
 	int m, n;
@@ -79,9 +80,10 @@ void PutBlackStone()
 			n = a[0] - 'A';
 		}
 	}
+	return m * 15 + n;
 }
 
-void PutWhiteStone()
+int PutWhiteStone()
 {
 	char a[5],b[5];
 	int m, n;
@@ -130,6 +132,7 @@ void PutWhiteStone()
 			n = a[0] - 'A';
 		}
 	}
+	return m * 15 + n;
 }
 
 int CheckLine(int colour)

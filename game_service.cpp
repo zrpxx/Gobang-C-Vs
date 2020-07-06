@@ -1,6 +1,7 @@
 #include "global.h"
 #include "game_file.h"
 #include "rank_file.h"
+#include "game_AI.h"
 
 void playGame()
 {
@@ -56,6 +57,78 @@ void playGame()
 	{
 		printf("\n┏  ━  ━  ━  ━  ━  ━  ━  ━  ┓");
 		printf("\n┃      ● Draw Game ○     ┃");
+		printf("\n┗  ━  ━  ━  ━  ━  ━  ━  ━  ┛\n");
+		system("pause");
+	}
+}
+
+void playGameAI() {
+	ClearBoard();
+	char c='\0';
+	printf("Please select your side (B/W):");
+	while(scanf("%s", &c)) {
+		if (c == 'B' || c == 'W')
+			break;
+		printf ("Wrong Input!\nPlease select your side (B/W):");
+	}
+	int i, j, steps, win, preID = 0;
+	char s;
+	char player[20];
+	win = 0;
+	steps = CountSteps();
+	Chessboard();
+	while (steps < 225 && win == 0) {
+		if (steps % 2 == 0 && c == 'B') {
+			preID = PutBlackStone(); //下黑子
+			system("cls");
+			Chessboard();																											  //打印棋盘
+			win = Max(CheckLine(STATUS_BLACK), CheckRow(STATUS_BLACK), CheckDiagonal(STATUS_BLACK), CheckBackDiagonal(STATUS_BLACK)); //胜利win输出1
+		}
+		else if (steps % 2 == 1 && c == 'W') {
+			preID = PutWhiteStone(); //下白子
+			system("cls");
+			Chessboard();																											  //打印棋盘
+			win = Max(CheckLine(STATUS_WHITE), CheckRow(STATUS_WHITE), CheckDiagonal(STATUS_WHITE), CheckBackDiagonal(STATUS_WHITE)); //胜利win输出1
+		}
+		else {
+			int id = AIPlay(stone, preID / 15, preID % 15);
+			stone[id / 15][id % 15] = (c == 'B') ? STATUS_WHITE : STATUS_BLACK;
+			system("cls");
+			Chessboard();																											  //打印棋盘
+			win = Max(CheckLine(STATUS_WHITE), CheckRow(STATUS_WHITE), CheckDiagonal(STATUS_WHITE), CheckBackDiagonal(STATUS_WHITE)); //胜利win输出1
+		}
+		steps = CountSteps();
+	}
+
+	if (win == 1 && steps % 2 == 1 && c == 'B') {
+		printf("\n┏  ━  ━  ━  ━  ━  ━  ━  ━  ┓");
+		printf("\n┃      ○ YOU   Win ○     ┃");
+		printf("\n┗  ━  ━  ━  ━  ━  ━  ━  ━  ┛\n");
+		printf("your name is:\n");
+		getchar();
+		scanf("%s", player);
+		AddRank(player, steps);
+		system("pause");
+	}
+	else if (win == 1 && steps % 2 == 0 && c == 'W') {
+		printf("\n┏  ━  ━  ━  ━  ━  ━  ━  ━  ┓");
+		printf("\n┃      ● YOU   Win ●     ┃");
+		printf("\n┗  ━  ━  ━  ━  ━  ━  ━  ━  ┛\n");
+		printf("your name is:\n");
+		getchar();
+		scanf("%s", player);
+		AddRank(player, steps);
+		system("pause");
+	}
+	else if (win == 0) {
+		printf("\n┏  ━  ━  ━  ━  ━  ━  ━  ━  ┓");
+		printf("\n┃      ● Draw Game ○     ┃");
+		printf("\n┗  ━  ━  ━  ━  ━  ━  ━  ━  ┛\n");
+		system("pause");
+	}
+	else {
+		printf("\n┏  ━  ━  ━  ━  ━  ━  ━  ━  ┓");
+		printf("\n┃      ● YOU  LOSE ○     ┃");
 		printf("\n┗  ━  ━  ━  ━  ━  ━  ━  ━  ┛\n");
 		system("pause");
 	}

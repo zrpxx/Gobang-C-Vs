@@ -28,17 +28,21 @@ int main()
 			playGame();
 			break;
 		case 2:
-			LoadBoard();
+			printf("start game");
+			playGameAI();
 			break;
 		case 3:
+			LoadBoard();
+			break;
+		case 4:
 			LoadRank(headNode);
 			ShowRank(headNode);
 			break;
-		case 4:
+		case 5:
 			printf("view rules");
 			Rule();
 			break;
-		case 5:
+		case 6:
 			printf("about us");
 			break;
 		default:

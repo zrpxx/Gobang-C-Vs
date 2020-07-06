@@ -3,8 +3,8 @@
 #define _GAME_FILE_H_
 
 void Chessboard();
-void PutBlackStone();
-void PutWhiteStone();
+int PutBlackStone();
+int PutWhiteStone();
 int CheckLine(int);
 int CheckRow(int);
 int CheckDiagonal(int);

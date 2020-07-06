@@ -21,16 +21,21 @@ void exitApplication()
 
 int printMainMenu()
 {
+	system("cls");
 	int nSelect = -1;
 	printf("\n");
 	printf("©¤ ©¤ ©¤ ©¤ ©¤ ©¤ ©¤ ©¤ ©¤ ©¤ ©¤ ©¤ ©¤ ©¤ ©¤ ©¤ ©¤ ©¤ ©¤\n");
-	printf("1.start game\t2.load board\t3.rank list\n");
-	printf("4.view rules\t5.about us\t0.exit\n");
+	printf("1.start game\t2.start game vs AI\t3.load board\n");
+	printf("4.rank list\t5.view rules\t6.about us\n");
+	printf("0.exit\n");
 	printf("©¨ ©¨ ©¨ ©¨ ©¨ ©¨ ©¨ ©¨ ©¨ ©¨ ©¨ ©¨ ©¨ ©¨ ©¨ ©¨ ©¨ ©¨ ©¨\n");
 	printf("Please select menu item number:");
-
-	scanf("%d", &nSelect);
+	
+	while (scanf("%d", &nSelect)) {
+		if (0 <= nSelect && nSelect <= 6)
+			break;
+		printf("Wrong Input!\n Retry:");
+	}
 	fflush(stdin);
-
 	return nSelect;
 }
